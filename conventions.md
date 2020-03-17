@@ -2,6 +2,22 @@
 
 ## Gitflow Workflow
 
+The Gitflow was published and popularized by [Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/).
+
+In summary,
+
+1. Master branch will only have high-quality code and only interacts with release branches.
+2. Develop branch is forked from master.
+3. Feature branches are forked from develop and merges back into develop.
+4. When develop has enough features, a release branch is forked from develop.
+    - Only bug fixes and documentation may be merged into release branches.
+    - Release branches have the `release` token, e.g. `release/0.1.0` is a good release branch name.
+    - When it is ready, the release branch is merged into master with a version tag and also into develop.
+
+5. Hotfix branches are used when there is an application-breaking bug in production (master).
+    - The hotfix branch is forked from master, the fix is implemented and merged back into master as well as develop and current release branch if there is one.
+    - Update the version tag of master.
+
 ## Conventional Commits
 
 - A commit is one single _logical change_. Don't commit several logical changes, it ends up being harder to follow and understand.
@@ -134,6 +150,8 @@ Searching made easy:
 ```md
 git branch --list "feat/*"
 ```
+
+Delete branches after they have merged.
 
 ## Keeping history clean (Merging)
 
