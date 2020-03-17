@@ -1,6 +1,42 @@
-# Git
+<!-- TOC -->
 
-## Gitflow Workflow
+- [1. Git](#1-git)
+    - [1.1. Gitflow Workflow](#11-gitflow-workflow)
+    - [1.2. Conventional Commits](#12-conventional-commits)
+        - [1.2.1. Messages](#121-messages)
+        - [1.2.2. Reverting Commits](#122-reverting-commits)
+    - [1.3. Branch Naming](#13-branch-naming)
+    - [1.4. Keeping history clean (Merging)](#14-keeping-history-clean-merging)
+        - [1.4.1. Updating branch with rebase](#141-updating-branch-with-rebase)
+        - [1.4.2. Pull Requests and Merges](#142-pull-requests-and-merges)
+            - [1.4.2.1. Rebase](#1421-rebase)
+            - [1.4.2.2. Squash](#1422-squash)
+        - [1.4.3. Re-writing history](#143-re-writing-history)
+            - [1.4.3.1. Merge & Squash](#1431-merge--squash)
+            - [1.4.3.2. Squashing commits](#1432-squashing-commits)
+        - [1.4.4. Unstaging a file](#144-unstaging-a-file)
+        - [1.4.5. Editing the previous commit message](#145-editing-the-previous-commit-message)
+        - [1.4.6. Forgot to stage a file with the previous commit](#146-forgot-to-stage-a-file-with-the-previous-commit)
+    - [1.5. Issues](#15-issues)
+    - [1.6. Pull Requests](#16-pull-requests)
+- [2. Coding Conventions](#2-coding-conventions)
+    - [2.1. Test Driven Development](#21-test-driven-development)
+    - [2.2. Refactoring](#22-refactoring)
+- [3. Repository](#3-repository)
+    - [3.1. README](#31-readme)
+    - [3.2. License](#32-license)
+    - [3.3. Changelog](#33-changelog)
+    - [3.4. Contributing](#34-contributing)
+    - [3.5. Code Owners](#35-code-owners)
+        - [3.5.1. Syntax](#351-syntax)
+    - [3.6. Support](#36-support)
+    - [3.7. Code of Conduct](#37-code-of-conduct)
+
+<!-- /TOC -->
+
+# 1. Git
+
+## 1.1. Gitflow Workflow
 
 The Gitflow was published and popularized by [Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/).
 
@@ -18,13 +54,13 @@ In summary,
     - The hotfix branch is forked from master, the fix is implemented and merged back into master as well as develop and current release branch if there is one.
     - Update the version tag of master.
 
-## Conventional Commits
+## 1.2. Conventional Commits
 
 - A commit is one single _logical change_. Don't commit several logical changes, it ends up being harder to follow and understand.
 - Use the interactive text editor to write meaningful commits `git commit` (omitting the -m).
 - Commit often and early, but push less frequently (only when you're sure).
 
-### Messages
+### 1.2.1. Messages
 
 Follow the [Conventional Commits](https://www.conventionalcommits.org/) and [Angular guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#).
 
@@ -69,13 +105,13 @@ To summarize,
     BREAKING CHANGE: using new features of Java 13, must drop support for Java 8
     ```
 
-### Reverting Commits
+### 1.2.2. Reverting Commits
 
 It might happen that we commit a change and push it to remote, but we need to undo it.
 
 This calls for a revert `git revert HEAD`. This will open a text editor where you can write about why the commit needed to be reverted. When you're done, save and close the editor.
 
-## Branch Naming
+## 1.3. Branch Naming
 
 - Short, but descriptive.
 
@@ -153,11 +189,11 @@ git branch --list "feat/*"
 
 Delete branches after they have merged.
 
-## Keeping history clean (Merging)
+## 1.4. Keeping history clean (Merging)
 
 __Warning__: published history on branches such as master and develop should never be re-written.
 
-### Updating branch with rebase
+### 1.4.1. Updating branch with rebase
 
 We may be used to and comfortable with `git pull origin develop` whenever we need to update our branch with the new changes on develop. We should know that the command pull combines both fetch and a merge, each time we use merge, a default commit message gets created and pollutes our git history.
 
@@ -167,15 +203,15 @@ To keep a clean history, we can use `git pull --rebase origin develop`. Which is
 
 With the rebase flag, the command `git rebase develop` will be used and this will move our branch to the head of the develop branch. This re-writes the history and thus, is __destructive__ and should not be used with more than one contributor on the working branch.
 
-### Pull Requests and Merges
+### 1.4.2. Pull Requests and Merges
 
-#### Rebase
+#### 1.4.2.1. Rebase
 
 The merge & rebase technique can also be used when a pull request (PR) is made and the code review is over.
 
 ![Merge and rebase on a pull request](docs/images/merge_and_rebase.png)
 
-#### Squash
+#### 1.4.2.2. Squash
 
 A merge & squash may be used as well, this way it shortens the commit history to a few commits. You can also give credits to multiple authors.
 
@@ -186,9 +222,9 @@ Co-authored-by: name <name@example.com>
 Co-authored-by: another-name <another-name@example.com>
 ```
 
-### Re-writing history
+### 1.4.3. Re-writing history
 
-#### Merge & Squash
+#### 1.4.3.1. Merge & Squash
 
 Say we are working on two branches, the second is tracking from the first, we have many commits on the second branch that we want to bring into our first branch, but don't want to pollute the history.
 
@@ -204,19 +240,19 @@ In the last command, we are omitting the -m flag to open the interactive text ed
 
 Of course, we can also use the previously mentioned technique of `git pull --rebase origin feat/second` to move the changes of the second branch to the head of the first branch to cleanly re-write history.
 
-#### Squashing commits
+#### 1.4.3.2. Squashing commits
 
 Sometimes we end up with many WIP type commits, when we finally reach a working part of a feature, we'd like to squash all previous, probably nonsensical, commits into fewer commits.
 
 To do that we use `git rebase -i head~N` where N is the number of commits we'd like to see in the interactive (-i) text editor.
 
-### Unstaging a file
+### 1.4.4. Unstaging a file
 
 It happens that we type `git add .` without realizing we staged unwanted files. If the changes haven't been pushed remotely yet, we can still undo the stages with:
 
 `git restore --staged unwanted-file`
 
-### Editing the previous commit message
+### 1.4.5. Editing the previous commit message
 
 Maybe we forgot a detail to add into the previous commit message, we can use the `--amend` flag.
 
@@ -224,13 +260,13 @@ Maybe we forgot a detail to add into the previous commit message, we can use the
 
 __Warning__: This is a destructive operation, which means it should only be done on a branch where you are the only contributor, otherwise there will be git conflicts.
 
-### Forgot to stage a file with the previous commit
+### 1.4.6. Forgot to stage a file with the previous commit
 
 Sometimes we finish writing our commit message and then realize we forgot to stage a file with that commit!
 
 First, we `git add forgotten-file` then `git commit --amend --no-edit`
 
-## Issues
+## 1.5. Issues
 
 ![Story hierarchy](docs/images/story-hierarchy.png)
 
@@ -249,7 +285,7 @@ You may find templates for issues in [ISSUE_TEMPLATE](docs/ISSUE_TEMPLATE).
 
 You can copy the `ISSUE_TEMPLATE` folder into the `docs` folder or the `.github` folder and they will appear when trying to open an issue.
 
-## Pull Requests
+## 1.6. Pull Requests
 
 In a pull request,
 
@@ -264,9 +300,9 @@ You may find a template for pull requests in [PULL_REQUEST_TEMPLATE](docs/PULL_R
 
 You can copy the `PULL_REQUEST_TEMPLATE` folder into the `docs` folder or `.github` folder and they will appear when trying to open an issue.
 
-# Coding Conventions
+# 2. Coding Conventions
 
-## Test Driven Development
+## 2.1. Test Driven Development
 
 I believe TDD to be a great development process.
 
@@ -276,13 +312,13 @@ Second, write some code to make that test pass.
 
 Third, refactor as needed and repeat from step one.
 
-## Refactoring
+## 2.2. Refactoring
 
 Before refactoring, write tests with near 100% coverage. With that, refactoring will be safer from producing bugs.
 
-# Repository
+# 3. Repository
 
-## README
+## 3.1. README
 
 Usually in the root of the repo. Can be named `readme.md` or `README.md`, with or without the extension. It could also be stored in `docs/` or `.github/`.
 
@@ -290,13 +326,13 @@ This is the file that all visitors will see when they visit your repo. It should
 
 Refer to [README_template.md](docs/README_template.md) for an outline.
 
-## License
+## 3.2. License
 
 State the license under which you are publishing your project, otherwise the default copyright laws apply.
 
 For help choose a license, refer to [choosealicense.com](http://choosealicense.com/)
 
-## Changelog
+## 3.3. Changelog
 
 The `CHANGELOG.md` tracks important changes in a easy-to-read file.
 
@@ -306,7 +342,7 @@ If the conventional commits guidelines are followed, then a changelog can be qui
 - [standard-version npm package](https://github.com/conventional-changelog/standard-version)
 - [changelog-generator vscode extension](https://marketplace.visualstudio.com/items?itemName=axetroy.vscode-changelog-generator)
 
-## Contributing
+## 3.4. Contributing
 
 Set guidelines for contributing to your project by creating a `CONTRIBUTING.md` file in the root, `docs/`, or `.github/` folder.
 
@@ -325,13 +361,13 @@ Some very good real-life examples of `CONTRIBUTING.md`:
 
 Also refer to [CONTRIBUTING_template.md](docs/CONTRIBUTING_template.md) which is from [contributing-template](https://github.com/nayafia/contributing-template).
 
-## Code Owners
+## 3.5. Code Owners
 
 The `CODEOWNERS` files is a file that resides either in the root of the repo, the `docs/` folder or the `.github/` folder.
 
 The main purpose of the file is specify who are the code owners of this repo. When a PR is opened, the correct code owners will be automatically requested review.
 
-### Syntax
+### 3.5.1. Syntax
 
 This section is directly from [GitHub](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax).
 
@@ -339,11 +375,11 @@ Refer for [CODEOWNERS_template](docs/CODEOWNERS_template) for examples and a tem
 
 _Note that this file does not have an `.md` extension._
 
-## Support
+## 3.6. Support
 
 The `SUPPORT.md` file is useful to let the users know how they can get in touch with you, if you'd like that. This file will also be linked on the right hand side when a user clicks on __New Issue__.
 
-## Code of Conduct
+## 3.7. Code of Conduct
 
 > A code of conduct is a document that establishes expectations for behavior for your project’s participants. Adopting, and enforcing, a code of conduct can help create a positive social atmosphere for your community.
 >
