@@ -50,11 +50,8 @@ To summarize,
     refactor!: drop support for Java 8
 
     refs #134, #146
-    closes #35
     BREAKING CHANGE: using new features of Java 13, must drop support for Java 8
     ```
-
-    _Tip_: using keywords such as "closes", "fixes", "resolves" will automatically close issues that you are referencing.
 
 ### Reverting Commits
 
@@ -152,9 +149,24 @@ To keep a clean history, we can use `git pull --rebase origin develop`. Which is
 
 With the rebase flag, the command `git rebase develop` will be used and this will move our branch to the head of the develop branch. This re-writes the history and thus, is __destructive__ and should not be used with more than one contributor on the working branch.
 
+### Pull Requests and Merges
+
+#### Rebase
+
 The merge & rebase technique can also be used when a pull request (PR) is made and the code review is over.
 
 ![Merge and rebase on a pull request](docs/images/merge_and_rebase.png)
+
+#### Squash
+
+A merge & squash may be used as well, this way it shortens the commit history to a few commits. You can also give credits to multiple authors.
+
+When writing the commit, add these lines at the end:
+
+```md
+Co-authored-by: name <name@example.com>
+Co-authored-by: another-name <another-name@example.com>
+```
 
 ### Re-writing history
 
@@ -184,13 +196,13 @@ To do that we use `git rebase -i head~N` where N is the number of commits we'd l
 
 It happens that we type `git add .` without realizing we staged unwanted files. If the changes haven't been pushed remotely yet, we can still undo the stages with:
 
-`git reset unwanted-file`
+`git restore --staged unwanted-file`
 
 ### Editing the previous commit message
 
 Maybe we forgot a detail to add into the previous commit message, we can use the `--amend` flag.
 
-`git commit --amend -m "updated commit message"`
+`git commit --amend`
 
 __Warning__: This is a destructive operation, which means it should only be done on a branch where you are the only contributor, otherwise there will be git conflicts.
 
@@ -217,9 +229,22 @@ Acceptance criteria
 
 You may find templates for issues in [ISSUE_TEMPLATE](docs/ISSUE_TEMPLATE).
 
-You can copy the `ISSUE_TEMPLATE` folder into the root of your repo, or `docs` or `.github` and they will appear when trying to open an issue.
+You can copy the `ISSUE_TEMPLATE` folder into the `docs` folder or the `.github` folder and they will appear when trying to open an issue.
 
 ## Pull Requests
+
+In a pull request,
+
+- We describe how this PR will change the code in develop or master.
+- Which areas of the application is affected by the PR.
+- Which issues it will close.
+- You may also talk about any deployment notes and how to test the changes.
+
+_Tip_: using keywords such as "closes", "fixes", "resolves" will automatically close issues that you are referencing.
+
+You may find a template for pull requests in [PULL_REQUEST_TEMPLATE](docs/PULL_REQUEST_TEMPLATE).
+
+You can copy the `PULL_REQUEST_TEMPLATE` folder into the `docs` folder or `.github` folder and they will appear when trying to open an issue.
 
 # Coding Conventions
 
@@ -286,7 +311,7 @@ Also refer to [CONTRIBUTING_template.md](docs/CONTRIBUTING_template.md) which is
 
 The `CODEOWNERS` files is a file that resides either in the root of the repo, the `docs/` folder or the `.github/` folder.
 
-The main purpose of the file is specify who are the code owners of this repo.
+The main purpose of the file is specify who are the code owners of this repo. When a PR is opened, the correct code owners will be automatically requested review.
 
 ### Syntax
 
