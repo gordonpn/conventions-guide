@@ -6,7 +6,57 @@
 
 ### Conventional Commits
 
-- A commit is one single _logical change_. Don't commit several 
+- A commit is one single _logical change_. Don't commit several logical changes, it ends up being harder to follow and understand.
+- Use the interactive text editor to write meaningful commits `git commit` (omitting the -m).
+- Commit often and early, but push less frequently (only when you're sure).
+
+#### Messages
+
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) and [Angular guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#).
+
+To summarize,
+
+```md
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+- All messages are always in present imperative tense. "change", not "changes" nor "changed".
+- Always lowercase.
+- Do not end sentences or phrases with periods.
+- Types possible:
+
+    ```md
+    feat    feature
+    fix     bug fix
+    docs    documentation
+    style   formatting, missing semi colons, etc.
+    refactor
+    test    when adding missing tests, or correcting
+    chore   maintain
+    build   affects build system or external dependencies
+    ci      change to CI configuration and scripts
+    perf    improves performance
+    ```
+
+- Scope is the scope in which the commit is related to. May be omitted.
+- The body explains why, how and side-effects.
+- Footer is where you may reference issues and make note of breaking changes.
+
+    If there is a breaking change, it must be written in uppercase and the type must hav a `!`
+
+    ```md
+    refactor!: drop support for Java 8
+
+    refs #134, #146
+    closes #35
+    BREAKING CHANGE: using new features of Java 13, must drop support for Java 8
+    ```
+
+    _Tip_: using keywords such as "closes", "fixes", "resolves" will automatically close issues that you are referencing.
 
 #### Reverting Commits
 
@@ -27,12 +77,68 @@ This calls for a revert `git revert HEAD`. This will open a text editor where yo
 - Only use hyphens (dashes) to separate words, not camelCase, nor snake_case.
 - When more than one person is working on the same feature, we may use tokens as such:
 
-    ```shell
-    feature-one/master
-    feature-one/gpnn
-    feature-one/bob
-    feature-one/tremblay
+    ```md
+    feat-one/master
+    feat-one/gpnn
+    feat-one/bob
+    feat-one/tremblay
     ```
+
+- Branches should be short-lived
+
+    When a large amount of code is opened for a PR, the code review can be tedious.
+
+- The master branch, is the branch that you are showing to the public, only commit high-quality code.
+
+Git branches are separated by group tokens:
+
+```md
+group1/foo
+group2/foo
+group1/bar
+group2/bar
+group3/bar
+group1/baz
+```
+
+Examples of tokens:
+
+```md
+wip                 Works in progress
+feat                Feature I'm adding or expanding
+bugfix              Bug fix or experiment
+hotfix              Hot fix to be merged quickly
+junk                Throwaway branch created to experiment
+chore               Cleaning up / organizing code; chores!
+docs                When adding or modifying documentation
+refactor            Working on refactoring, no new code
+tests               When added tests or correcting tests
+username            Your Git username
+user-story-{id}     Identify the user story by id
+issue-{id}          Identify the issue by id
+task-{id}           Identify the task by id
+```
+
+Git branches may be further tokenized:
+
+```md
+feat/user-story-6/brief-description
+feat/feat-area/feat-name
+hotfix/brief-description
+bugfix/gpnn/issue-4/right-click-unavailable
+```
+
+Full example:
+
+```md
+wip/migrating-db-to-mongodb
+```
+
+Searching made easy:
+
+```md
+git branch --list "feat/*"
+```
 
 ### Keeping history clean
 
@@ -98,9 +204,40 @@ First, we `git add forgotten-file` then `git commit --amend --no-edit`
 
 ### Issues
 
+![Story hierarchy](docs/images/story-hierarchy.png)
+
+To add to the above image, tasks may also be bugs to fix. Tasks may have sub-tasks.
+
+The typical user story goes as such:
+
+```text
+As a <Role/User Type/Who>, I want <Goal/Function/What>, so that <Benefit/Why>.
+When <Situation>, I want to <Motivation>, so I can <Expected outcome>.
+
+Acceptance criteria
+```
+
 ### Pull Requests
 
-## README
+## Coding Conventions
+
+### Test Driven Development
+
+I believe TDD to be a great development process.
+
+First, you write a test that will obviously fail (because you don't have any code yet).
+
+Second, write some code to make that test pass.
+
+Third, refactor as needed and repeat from step one.
+
+### Refactoring
+
+Before refactoring, write tests with near 100% coverage. With that, refactoring will be safer from producing bugs.
+
+## Repository
+
+### README
 
 Usually in the root of the repo. Can be named `readme.md` or `README.md`, with or without the extension. It could also be stored in `docs/` or `.github/`.
 
@@ -108,13 +245,13 @@ This is the file that all visitors will see when they visit your repo. It should
 
 Refer to [README_template.md](docs/README_template.md) for an outline.
 
-## License
+### License
 
 State the license under which you are publishing your project, otherwise the default copyright laws apply.
 
 For help choose a license, refer to [choosealicense.com](http://choosealicense.com/)
 
-## Changelog
+### Changelog
 
 The `CHANGELOG.md` tracks important changes in a easy-to-read file.
 
@@ -124,7 +261,7 @@ If the conventional commits guidelines are followed, then a changelog can be qui
 - [standard-version npm package](https://github.com/conventional-changelog/standard-version)
 - [changelog-generator vscode extension](https://marketplace.visualstudio.com/items?itemName=axetroy.vscode-changelog-generator)
 
-## Contributing
+### Contributing
 
 Set guidelines for contributing to your project by creating a `CONTRIBUTING.md` file in the root, `docs/`, or `.github/` folder.
 
@@ -143,13 +280,13 @@ Some very good real-life examples of `CONTRIBUTING.md`:
 
 Also refer to [CONTRIBUTING_template.md](docs/CONTRIBUTING_template.md) which is from [contributing-template](https://github.com/nayafia/contributing-template).
 
-## Code Owners
+### Code Owners
 
 The `CODEOWNERS` files is a file that resides either in the root of the repo, the `docs/` folder or the `.github/` folder.
 
 The main purpose of the file is specify who are the code owners of this repo.
 
-### Syntax
+#### Syntax
 
 This section is directly from [GitHub](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax).
 
@@ -157,11 +294,11 @@ Refer for [CODEOWNERS_template](docs/CODEOWNERS_template) for examples and a tem
 
 _Note that this file does not have an `.md` extension._
 
-## Support
+### Support
 
 The `SUPPORT.md` file is useful to let the users know how they can get in touch with you, if you'd like that. This file will also be linked on the right hand side when a user clicks on __New Issue__.
 
-## Code of Conduct
+### Code of Conduct
 
 > A code of conduct is a document that establishes expectations for behavior for your project’s participants. Adopting, and enforcing, a code of conduct can help create a positive social atmosphere for your community.
 >
