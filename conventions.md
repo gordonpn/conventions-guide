@@ -1,16 +1,14 @@
-# Table of Contents
+# Git
 
-## Git
+## Gitflow Workflow
 
-### Gitflow Workflow
-
-### Conventional Commits
+## Conventional Commits
 
 - A commit is one single _logical change_. Don't commit several logical changes, it ends up being harder to follow and understand.
 - Use the interactive text editor to write meaningful commits `git commit` (omitting the -m).
 - Commit often and early, but push less frequently (only when you're sure).
 
-#### Messages
+### Messages
 
 Follow the [Conventional Commits](https://www.conventionalcommits.org/) and [Angular guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#).
 
@@ -58,13 +56,13 @@ To summarize,
 
     _Tip_: using keywords such as "closes", "fixes", "resolves" will automatically close issues that you are referencing.
 
-#### Reverting Commits
+### Reverting Commits
 
 It might happen that we commit a change and push it to remote, but we need to undo it.
 
 This calls for a revert `git revert HEAD`. This will open a text editor where you can write about why the commit needed to be reverted. When you're done, save and close the editor.
 
-### Branch Naming
+## Branch Naming
 
 - Short, but descriptive.
 
@@ -140,11 +138,11 @@ Searching made easy:
 git branch --list "feat/*"
 ```
 
-### Keeping history clean
+## Keeping history clean (Merging)
 
 __Warning__: published history on branches such as master and develop should never be re-written.
 
-#### Updating branch with rebase
+### Updating branch with rebase
 
 We may be used to and comfortable with `git pull origin develop` whenever we need to update our branch with the new changes on develop. We should know that the command pull combines both fetch and a merge, each time we use merge, a default commit message gets created and pollutes our git history.
 
@@ -158,9 +156,9 @@ The merge & rebase technique can also be used when a pull request (PR) is made a
 
 ![Merge and rebase on a pull request](docs/images/merge_and_rebase.png)
 
-#### Re-writing history
+### Re-writing history
 
-##### Merge & Squash
+#### Merge & Squash
 
 Say we are working on two branches, the second is tracking from the first, we have many commits on the second branch that we want to bring into our first branch, but don't want to pollute the history.
 
@@ -176,19 +174,19 @@ In the last command, we are omitting the -m flag to open the interactive text ed
 
 Of course, we can also use the previously mentioned technique of `git pull --rebase origin feat/second` to move the changes of the second branch to the head of the first branch to cleanly re-write history.
 
-##### Squashing commits
+#### Squashing commits
 
 Sometimes we end up with many WIP type commits, when we finally reach a working part of a feature, we'd like to squash all previous, probably nonsensical, commits into fewer commits.
 
 To do that we use `git rebase -i head~N` where N is the number of commits we'd like to see in the interactive (-i) text editor.
 
-#### Unstaging a file
+### Unstaging a file
 
 It happens that we type `git add .` without realizing we staged unwanted files. If the changes haven't been pushed remotely yet, we can still undo the stages with:
 
 `git reset unwanted-file`
 
-#### Editing the previous commit message
+### Editing the previous commit message
 
 Maybe we forgot a detail to add into the previous commit message, we can use the `--amend` flag.
 
@@ -196,13 +194,13 @@ Maybe we forgot a detail to add into the previous commit message, we can use the
 
 __Warning__: This is a destructive operation, which means it should only be done on a branch where you are the only contributor, otherwise there will be git conflicts.
 
-#### Forgot to stage a file with the previous commit
+### Forgot to stage a file with the previous commit
 
 Sometimes we finish writing our commit message and then realize we forgot to stage a file with that commit!
 
 First, we `git add forgotten-file` then `git commit --amend --no-edit`
 
-### Issues
+## Issues
 
 ![Story hierarchy](docs/images/story-hierarchy.png)
 
@@ -217,11 +215,15 @@ When <Situation>, I want to <Motivation>, so I can <Expected outcome>.
 Acceptance criteria
 ```
 
-### Pull Requests
+You may find templates for issues in [ISSUE_TEMPLATE](docs/ISSUE_TEMPLATE).
 
-## Coding Conventions
+You can copy the `ISSUE_TEMPLATE` folder into the root of your repo, or `docs` or `.github` and they will appear when trying to open an issue.
 
-### Test Driven Development
+## Pull Requests
+
+# Coding Conventions
+
+## Test Driven Development
 
 I believe TDD to be a great development process.
 
@@ -231,13 +233,13 @@ Second, write some code to make that test pass.
 
 Third, refactor as needed and repeat from step one.
 
-### Refactoring
+## Refactoring
 
 Before refactoring, write tests with near 100% coverage. With that, refactoring will be safer from producing bugs.
 
-## Repository
+# Repository
 
-### README
+## README
 
 Usually in the root of the repo. Can be named `readme.md` or `README.md`, with or without the extension. It could also be stored in `docs/` or `.github/`.
 
@@ -245,13 +247,13 @@ This is the file that all visitors will see when they visit your repo. It should
 
 Refer to [README_template.md](docs/README_template.md) for an outline.
 
-### License
+## License
 
 State the license under which you are publishing your project, otherwise the default copyright laws apply.
 
 For help choose a license, refer to [choosealicense.com](http://choosealicense.com/)
 
-### Changelog
+## Changelog
 
 The `CHANGELOG.md` tracks important changes in a easy-to-read file.
 
@@ -261,7 +263,7 @@ If the conventional commits guidelines are followed, then a changelog can be qui
 - [standard-version npm package](https://github.com/conventional-changelog/standard-version)
 - [changelog-generator vscode extension](https://marketplace.visualstudio.com/items?itemName=axetroy.vscode-changelog-generator)
 
-### Contributing
+## Contributing
 
 Set guidelines for contributing to your project by creating a `CONTRIBUTING.md` file in the root, `docs/`, or `.github/` folder.
 
@@ -280,13 +282,13 @@ Some very good real-life examples of `CONTRIBUTING.md`:
 
 Also refer to [CONTRIBUTING_template.md](docs/CONTRIBUTING_template.md) which is from [contributing-template](https://github.com/nayafia/contributing-template).
 
-### Code Owners
+## Code Owners
 
 The `CODEOWNERS` files is a file that resides either in the root of the repo, the `docs/` folder or the `.github/` folder.
 
 The main purpose of the file is specify who are the code owners of this repo.
 
-#### Syntax
+### Syntax
 
 This section is directly from [GitHub](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax).
 
@@ -294,11 +296,11 @@ Refer for [CODEOWNERS_template](docs/CODEOWNERS_template) for examples and a tem
 
 _Note that this file does not have an `.md` extension._
 
-### Support
+## Support
 
 The `SUPPORT.md` file is useful to let the users know how they can get in touch with you, if you'd like that. This file will also be linked on the right hand side when a user clicks on __New Issue__.
 
-### Code of Conduct
+## Code of Conduct
 
 > A code of conduct is a document that establishes expectations for behavior for your project’s participants. Adopting, and enforcing, a code of conduct can help create a positive social atmosphere for your community.
 >
