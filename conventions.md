@@ -1,0 +1,170 @@
+# Table of Contents
+
+## Git
+
+### Gitflow Workflow
+
+### Conventional Commits
+
+- A commit is one single _logical change_. Don't commit several 
+
+#### Reverting Commits
+
+It might happen that we commit a change and push it to remote, but we need to undo it.
+
+This calls for a revert `git revert HEAD`. This will open a text editor where you can write about why the commit needed to be reverted. When you're done, save and close the editor.
+
+### Branch Naming
+
+- Short, but descriptive.
+
+    `oauth-migration` is good, but `login_fix` is vague and not good.
+
+- Branch names should always be lowercase.
+
+    `issue-9` to reference GitHub issue 9.
+
+- Only use hyphens (dashes) to separate words, not camelCase, nor snake_case.
+- When more than one person is working on the same feature, we may use tokens as such:
+
+    ```shell
+    feature-one/master
+    feature-one/gpnn
+    feature-one/bob
+    feature-one/tremblay
+    ```
+
+### Keeping history clean
+
+__Warning__: published history on branches such as master and develop should never be re-written.
+
+#### Updating branch with rebase
+
+We may be used to and comfortable with `git pull origin develop` whenever we need to update our branch with the new changes on develop. We should know that the command pull combines both fetch and a merge, each time we use merge, a default commit message gets created and pollutes our git history.
+
+With the merge method, we would usually be in our working branch, then run the command `git merge develop` to bring the changes into our branch. This method is __non-destructive__.
+
+To keep a clean history, we can use `git pull --rebase origin develop`. Which is the same as doing `git fetch develop && git rebase origin/develop`
+
+With the rebase flag, the command `git rebase develop` will be used and this will move our branch to the head of the develop branch. This re-writes the history and thus, is __destructive__ and should not be used with more than one contributor on the working branch.
+
+The merge & rebase technique can also be used when a pull request (PR) is made and the code review is over.
+
+![Merge and rebase on a pull request](docs/images/merge_and_rebase.png)
+
+#### Re-writing history
+
+##### Merge & Squash
+
+Say we are working on two branches, the second is tracking from the first, we have many commits on the second branch that we want to bring into our first branch, but don't want to pollute the history.
+
+We can squash all those commits from the second branch, into one commit with this flow:
+
+```bash
+git checkout feat/first
+git merge --squash feat/second
+git commit
+```
+
+In the last command, we are omitting the -m flag to open the interactive text editor to see all the commit messages we are squashing.
+
+Of course, we can also use the previously mentioned technique of `git pull --rebase origin feat/second` to move the changes of the second branch to the head of the first branch to cleanly re-write history.
+
+##### Squashing commits
+
+Sometimes we end up with many WIP type commits, when we finally reach a working part of a feature, we'd like to squash all previous, probably nonsensical, commits into fewer commits.
+
+To do that we use `git rebase -i head~N` where N is the number of commits we'd like to see in the interactive (-i) text editor.
+
+#### Unstaging a file
+
+It happens that we type `git add .` without realizing we staged unwanted files. If the changes haven't been pushed remotely yet, we can still undo the stages with:
+
+`git reset unwanted-file`
+
+#### Editing the previous commit message
+
+Maybe we forgot a detail to add into the previous commit message, we can use the `--amend` flag.
+
+`git commit --amend -m "updated commit message"`
+
+__Warning__: This is a destructive operation, which means it should only be done on a branch where you are the only contributor, otherwise there will be git conflicts.
+
+#### Forgot to stage a file with the previous commit
+
+Sometimes we finish writing our commit message and then realize we forgot to stage a file with that commit!
+
+First, we `git add forgotten-file` then `git commit --amend --no-edit`
+
+### Issues
+
+### Pull Requests
+
+## README
+
+Usually in the root of the repo. Can be named `readme.md` or `README.md`, with or without the extension. It could also be stored in `docs/` or `.github/`.
+
+This is the file that all visitors will see when they visit your repo. It should be the only file that you should expect your visitors to read, so it should be as concise and straight to the point as possible, starting with the most important points.
+
+Refer to [README_template.md](docs/README_template.md) for an outline.
+
+## License
+
+State the license under which you are publishing your project, otherwise the default copyright laws apply.
+
+For help choose a license, refer to [choosealicense.com](http://choosealicense.com/)
+
+## Changelog
+
+The `CHANGELOG.md` tracks important changes in a easy-to-read file.
+
+If the conventional commits guidelines are followed, then a changelog can be quickly generated using tools such as:
+
+- [conventional-changelog npm package](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)
+- [standard-version npm package](https://github.com/conventional-changelog/standard-version)
+- [changelog-generator vscode extension](https://marketplace.visualstudio.com/items?itemName=axetroy.vscode-changelog-generator)
+
+## Contributing
+
+Set guidelines for contributing to your project by creating a `CONTRIBUTING.md` file in the root, `docs/`, or `.github/` folder.
+
+Here you can list:
+
+- Steps to opening good issues, or pull requests
+- Accepted types of contributions
+- List resources, how to talk with other developers
+- Coding conventions you use for your project
+
+Some very good real-life examples of `CONTRIBUTING.md`:
+
+- [Atom editor](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)
+- [Rails framework](https://github.com/rails/rails/blob/f68c1ef3ede1ffe84f62ca5eaebd3d9648bdd86c/CONTRIBUTING.md)
+- [OpenGovernment](https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md)
+
+Also refer to [CONTRIBUTING_template.md](docs/CONTRIBUTING_template.md) which is from [contributing-template](https://github.com/nayafia/contributing-template).
+
+## Code Owners
+
+The `CODEOWNERS` files is a file that resides either in the root of the repo, the `docs/` folder or the `.github/` folder.
+
+The main purpose of the file is specify who are the code owners of this repo.
+
+### Syntax
+
+This section is directly from [GitHub](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax).
+
+Refer for [CODEOWNERS_template](docs/CODEOWNERS_template) for examples and a template.
+
+_Note that this file does not have an `.md` extension._
+
+## Support
+
+The `SUPPORT.md` file is useful to let the users know how they can get in touch with you, if you'd like that. This file will also be linked on the right hand side when a user clicks on __New Issue__.
+
+## Code of Conduct
+
+> A code of conduct is a document that establishes expectations for behavior for your project’s participants. Adopting, and enforcing, a code of conduct can help create a positive social atmosphere for your community.
+>
+> -- [opensource.guide](https://opensource.guide/code-of-conduct/)
+
+From the main page of your repository, click on __Create new File__, type `CODE_OF_CONDUCT.md` into the filename field and GitHub will suggest templates on the left hand side.
