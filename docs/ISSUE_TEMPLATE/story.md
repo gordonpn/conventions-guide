@@ -1,5 +1,7 @@
+---
 name: Story
 about: Create a story
+---
 
 As a [Role/User Type/Who], I want [Goal/Function/What], so that [Benefit/Why].
 

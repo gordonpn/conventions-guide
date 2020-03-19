@@ -1,5 +1,7 @@
+---
 name: Bug
 about: Create a bug
+---
 
 Description:
 
