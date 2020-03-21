@@ -7,67 +7,83 @@ To use:
  */
 [{
         "name": "Type: Help Needed",
-        "color": "5319e7"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Priority: Critical",
-        "color": "ff2222"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Priority: High",
-        "color": "FF7922"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Priority: Low",
-        "color": "c2e0c6"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Priority: Medium",
-        "color": "fbca04"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Status: Complete",
-        "color": "7ED321"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Status: Confirmed",
-        "color": "0e8a16"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Status: Feedback Needed",
-        "color": "006b75"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Status: In Progress",
-        "color": "FC8264"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Status: On Hold",
-        "color": "BABABA"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Status: Review Needed",
-        "color": "EAE435"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Type: Bug",
-        "color": "ff2222"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Type: Enhancement",
-        "color": "1d76db"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Type: Feature",
-        "color": "6DFF6D"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Type: Idea",
-        "color": "6DE6FF"
+        "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "Type: Question",
-        "color": "FF6DD9"
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "Type: Story",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },    
+    {
+        "name": "Type: Epic",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "Type: Task",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "Type: Sub-task",
+        "color": Math.floor(Math.random()*16777215).toString(16)
     }
 ].forEach(function (label) {
     addLabel(label)
