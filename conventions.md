@@ -1,7 +1,9 @@
 <!-- TOC -->
 
 - [1. Git](#1-git)
-    - [1.1. Gitflow Workflow](#11-gitflow-workflow)
+    - [1.1. Workflows](#11-workflows)
+        - [1.1.1. Gitflow Workflow](#111-gitflow-workflow)
+        - [1.1.2. Git Feature Branch Workflow](#112-git-feature-branch-workflow)
     - [1.2. Conventional Commits](#12-conventional-commits)
         - [1.2.1. Messages](#121-messages)
         - [1.2.2. Reverting Commits](#122-reverting-commits)
@@ -14,9 +16,12 @@
         - [1.4.3. Re-writing history](#143-re-writing-history)
             - [1.4.3.1. Merge & Squash](#1431-merge--squash)
             - [1.4.3.2. Squashing commits](#1432-squashing-commits)
-        - [1.4.4. Unstaging a file](#144-unstaging-a-file)
-        - [1.4.5. Editing the previous commit message](#145-editing-the-previous-commit-message)
-        - [1.4.6. Forgot to stage a file with the previous commit](#146-forgot-to-stage-a-file-with-the-previous-commit)
+            - [1.4.3.3. Notes](#1433-notes)
+        - [1.4.4. Common Mistakes](#144-common-mistakes)
+            - [1.4.4.1. Unstaging a file](#1441-unstaging-a-file)
+            - [1.4.4.2. Editing the previous commit message](#1442-editing-the-previous-commit-message)
+            - [1.4.4.3. Forgot to stage a file with the previous commit](#1443-forgot-to-stage-a-file-with-the-previous-commit)
+            - [1.4.4.4. More](#1444-more)
     - [1.5. Issues](#15-issues)
     - [1.6. Pull Requests](#16-pull-requests)
 - [2. Coding Conventions](#2-coding-conventions)
@@ -36,7 +41,9 @@
 
 # 1. Git
 
-## 1.1. Gitflow Workflow
+## 1.1. Workflows
+
+### 1.1.1. Gitflow Workflow
 
 The Gitflow was published and popularized by [Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/).
 
@@ -48,11 +55,16 @@ In summary,
 4. When develop has enough features, a release branch is forked from develop.
     - Only bug fixes and documentation may be merged into release branches.
     - Release branches have the `release` token, e.g. `release/0.1.0` is a good release branch name.
-    - When it is ready, the release branch is merged into master with a version tag and also into develop.
+    - When it is ready, the release branch is pushed with a tag name, such as `v1.2.3` where `1.2.3` follows [semantic versioning guidelines](https://semver.org/).
+    - The release branch is merged into master and into develop.
 
 5. Hotfix branches are used when there is an application-breaking bug in production (master).
     - The hotfix branch is forked from master, the fix is implemented and merged back into master as well as develop and current release branch if there is one.
     - Update the version tag of master.
+
+### 1.1.2. Git Feature Branch Workflow
+
+A simpler workflow is also often used, you can find more details on [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
 
 ## 1.2. Conventional Commits
 
@@ -125,10 +137,10 @@ This calls for a revert `git revert HEAD`. This will open a text editor where yo
 - When more than one person is working on the same feature, we may use tokens as such:
 
     ```md
-    feat-one/master
-    feat-one/gpnn
-    feat-one/bob
-    feat-one/tremblay
+    feat/issue-1/master
+    feat/issue-1/gpnn
+    feat/issue-1/bob
+    feat/issue-1/tremblay
     ```
 
 - Branches should be short-lived
@@ -151,15 +163,17 @@ group1/baz
 Examples of tokens:
 
 ```md
-wip                 Works in progress
 feat                Feature I'm adding or expanding
+feature             Same as above
 bugfix              Bug fix or experiment
 hotfix              Hot fix to be merged quickly
-junk                Throwaway branch created to experiment
 chore               Cleaning up / organizing code; chores!
 docs                When adding or modifying documentation
 refactor            Working on refactoring, no new code
+release             Used for release branches
 tests               When added tests or correcting tests
+junk                Throwaway branch created to experiment
+wip                 Works in progress
 username            Your Git username
 user-story-{id}     Identify the user story by id
 issue-{id}          Identify the issue by id
@@ -187,7 +201,9 @@ Searching made easy:
 git branch --list "feat/*"
 ```
 
-Delete branches after they have merged.
+![Visualization](./docs/images/branch-naming-regex.svg)
+
+__Also:__ Delete branches after they have merged.
 
 ## 1.4. Keeping history clean (Merging)
 
@@ -246,13 +262,19 @@ Sometimes we end up with many WIP type commits, when we finally reach a working 
 
 To do that we use `git rebase -i head~N` where N is the number of commits we'd like to see in the interactive (-i) text editor.
 
-### 1.4.4. Unstaging a file
+#### 1.4.3.3. Notes
+
+It could sometimes be beneficial to leave the merge commit in the history on the master branch, especially when working with many contributors and/or a bigger project. This way we can see where the big changes happened. But do clean up your branch's commit history.
+
+### 1.4.4. Common Mistakes
+
+#### 1.4.4.1. Unstaging a file
 
 It happens that we type `git add .` without realizing we staged unwanted files. If the changes haven't been pushed remotely yet, we can still undo the stages with:
 
 `git restore --staged unwanted-file`
 
-### 1.4.5. Editing the previous commit message
+#### 1.4.4.2. Editing the previous commit message
 
 Maybe we forgot a detail to add into the previous commit message, we can use the `--amend` flag.
 
@@ -260,11 +282,15 @@ Maybe we forgot a detail to add into the previous commit message, we can use the
 
 __Warning__: This is a destructive operation, which means it should only be done on a branch where you are the only contributor, otherwise there will be git conflicts.
 
-### 1.4.6. Forgot to stage a file with the previous commit
+#### 1.4.4.3. Forgot to stage a file with the previous commit
 
 Sometimes we finish writing our commit message and then realize we forgot to stage a file with that commit!
 
 First, we `git add forgotten-file` then `git commit --amend --no-edit`
+
+#### 1.4.4.4. More
+
+Refer to [Dangit, Git!?!](https://dangitgit.com/)
 
 ## 1.5. Issues
 
