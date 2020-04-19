@@ -17,6 +17,7 @@ See the [documentation](./conventions.md)!
 - [1. Git](./conventions.md#1-git)
     - [1.1. Workflows](./conventions.md#11-workflows)
         - [1.1.1. Gitflow Workflow](./conventions.md#111-gitflow-workflow)
+            - [1.1.1.1. Notes](./conventions.md#1111-notes)
         - [1.1.2. Git Feature Branch Workflow](./conventions.md#112-git-feature-branch-workflow)
     - [1.2. Conventional Commits](./conventions.md#12-conventional-commits)
         - [1.2.1. Messages](./conventions.md#121-messages)

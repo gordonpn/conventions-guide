@@ -3,6 +3,7 @@
 - [1. Git](#1-git)
     - [1.1. Workflows](#11-workflows)
         - [1.1.1. Gitflow Workflow](#111-gitflow-workflow)
+            - [1.1.1.1. Notes](#1111-notes)
         - [1.1.2. Git Feature Branch Workflow](#112-git-feature-branch-workflow)
     - [1.2. Conventional Commits](#12-conventional-commits)
         - [1.2.1. Messages](#121-messages)
@@ -61,6 +62,12 @@ In summary,
 5. Hotfix branches are used when there is an application-breaking bug in production (master).
     - The hotfix branch is forked from master, the fix is implemented and merged back into master as well as develop and current release branch if there is one.
     - Update the version tag of master.
+
+#### 1.1.1.1. Notes
+
+As you are working on your feature or fix, stay up to date with the develop branch with `git pull --rebase`.
+
+When your branch is ready for a merge, then clean up your commits with `git rebase -i`. Then, open a pull request to be reviewed.
 
 ### 1.1.2. Git Feature Branch Workflow
 
