@@ -3,28 +3,33 @@ name: Bug
 about: Create a bug
 ---
 
-Description:
+# Description
 
 <!-- Describe -->
 
-Possible fix:
+## Possible fix
 
 <!-- A possible fix -->
+<!-- Remove following sections as necessary -->
 
-Steps to reproduce:
-
--
--
--
-
-Expected behavior:
+### Steps to reproduce
 
 -
 -
 -
 
-Actual behavior:
+### Expected behavior
 
 -
 -
 -
+
+### Actual behavior
+
+-
+-
+-
+
+#### References
+
+<!-- If any, such as documentation/forum/blog links, other related issues -->
