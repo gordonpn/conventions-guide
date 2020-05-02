@@ -1,4 +1,4 @@
-/* 
+/*
 Purpose of this file is to automatically create useful labels for any projects to use.
 To use:
 1. Go to https://github.com/user/repo/labels
@@ -6,83 +6,83 @@ To use:
 3. Paste the following script and hit enter
  */
 [{
-        "name": "Type: Help Needed",
+        "name": "type: help needed",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Priority: Critical",
+        "name": "priority: critical",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Priority: High",
+        "name": "priority: high",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Priority: Low",
+        "name": "priority: low",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Priority: Medium",
+        "name": "priority: medium",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Status: Complete",
+        "name": "status: complete",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Status: Confirmed",
+        "name": "status: confirmed",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Status: Feedback Needed",
+        "name": "status: feedback needed",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Status: In Progress",
+        "name": "status: in progress",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Status: On Hold",
+        "name": "status: on hold",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Status: Review Needed",
+        "name": "status: review needed",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Bug",
+        "name": "type: bug",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Enhancement",
+        "name": "type: enhancement",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Feature",
+        "name": "type: feature",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Idea",
+        "name": "type: idea",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Question",
+        "name": "type: question",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Story",
-        "color": Math.floor(Math.random()*16777215).toString(16)
-    },    
-    {
-        "name": "Type: Epic",
+        "name": "type: story",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Task",
+        "name": "type: epic",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
-        "name": "Type: Sub-task",
+        "name": "type: task",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "type: sub-task",
         "color": Math.floor(Math.random()*16777215).toString(16)
     }
 ].forEach(function (label) {
