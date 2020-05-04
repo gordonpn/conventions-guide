@@ -10,6 +10,18 @@ To use:
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
+        "name": "good first issue",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "type: documentation",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "type: chore",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
         "name": "priority: critical",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
