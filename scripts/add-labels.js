@@ -6,11 +6,23 @@ To use:
 3. Paste the following script and hit enter
  */
 [{
-        "name": "type: help needed",
+        "name": "type: help wanted",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
         "name": "good first issue",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "difficulty: easy",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "difficulty: hard",
+        "color": Math.floor(Math.random()*16777215).toString(16)
+    },
+    {
+        "name": "difficulty: medium",
         "color": Math.floor(Math.random()*16777215).toString(16)
     },
     {
