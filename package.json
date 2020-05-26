@@ -1,7 +1,7 @@
 {
-  "name": "git-conventions-guide",
+  "name": "conventions-guide",
   "author": "Gordon Pham-Nguyen",
-  "repository": "https://github.com/gordonpn/git-conventions-guide",
+  "repository": "https://github.com/gordonpn/conventions-guide",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {

@@ -26,7 +26,11 @@ type: docker
 name: build docker images
 
 trigger:
-  event: [ push ]
+  event:
+    - push
+  branch:
+    exclude:
+      - master
 
 steps:
   - name: build image

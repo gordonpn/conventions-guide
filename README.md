@@ -23,6 +23,10 @@ See the live at https://conventions.gordon-pn.com
 - gatsby-theme-document plugin
 - Docker and docker-compose
 
+## Screenshot
+
+[![Screenshot](./docs/screenshot.png)](https://conventions.gordon-pn.com)
+
 ## Contributing
 
 [Contributing](./CONTRIBUTING.md)
