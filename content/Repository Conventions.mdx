@@ -1,0 +1,84 @@
+---
+title: 'Repository Conventions'
+description: 'Conventions about the Git repository, which files to have and what they do.'
+---
+
+## README
+
+Usually in the root of the repo. Can be named `readme.md` or `README.md`, with or without the extension. It could also be stored in `docs/` or `.github/`.
+
+This is the file that all visitors will see when they visit your repo. It should be the only file that you should expect your visitors to read, so it should be as concise and straight to the point as possible, starting with the most important points.
+
+Refer to [README_template.md](https://github.com/gordonpn/conventions-guide/blob/master/docs/README_template.md) for an outline.
+
+## License
+
+State the license under which you are publishing your project, otherwise the default copyright laws apply.
+
+For help choose a license, refer to [choosealicense.com](http://choosealicense.com/)
+
+## Labels
+
+Using labels is a great way to organize the issues in your project. I personally use the following JavaScript script to add common labels needed for most projects: [JavaScript Script](https://github.com/gordonpn/conventions-guide/blob/master/scripts/add-labels.js)
+
+It's very easy to use:
+
+1. Navigate to the labels page of your repository
+2. Remove all default labels
+3. Open the console log and paste the script
+4. Hit enter to run the script (you maybe have to run it a couple of times to get all the labels correctly)
+
+## Changelog
+
+The `CHANGELOG.md` tracks important changes in a easy-to-read file.
+
+If the conventional commits guidelines are followed, then a changelog can be quickly generated using tools such as:
+
+- [conventional-changelog npm package](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)
+- [standard-version npm package](https://github.com/conventional-changelog/standard-version)
+- [changelog-generator vscode extension](https://marketplace.visualstudio.com/items?itemName=axetroy.vscode-changelog-generator)
+
+## Contributing
+
+Set guidelines for contributing to your project by creating a `CONTRIBUTING.md` file in the root, `docs/`, or `.github/` folder.
+
+Here you can list:
+
+- Steps to opening good issues, or pull requests
+- Accepted types of contributions
+- List resources, how to talk with other developers
+- Coding conventions you use for your project
+
+Some very good real-life examples of `CONTRIBUTING.md`:
+
+- [Atom editor](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)
+- [Rails framework](https://github.com/rails/rails/blob/f68c1ef3ede1ffe84f62ca5eaebd3d9648bdd86c/CONTRIBUTING.md)
+- [OpenGovernment](https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md)
+
+Also refer to [CONTRIBUTING_template.md](https://github.com/gordonpn/conventions-guide/blob/master/docs/CONTRIBUTING_template.md) which is from [contributing-template](https://github.com/nayafia/contributing-template).
+
+## Code Owners
+
+The `CODEOWNERS` files is a file that resides either in the root of the repo, the `docs/` folder or the `.github/` folder.
+
+The main purpose of the file is specify who are the code owners of this repo. When a PR is opened, the correct code owners will be automatically requested review.
+
+### Syntax
+
+This section is directly from [GitHub](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax).
+
+Refer for [CODEOWNERS_template](https://github.com/gordonpn/conventions-guide/blob/master/docs/CODEOWNERS_template) for examples and a template.
+
+_Note that this file does not have an `.md` extension._
+
+## Support
+
+The `SUPPORT.md` file is useful to let the users know how they can get in touch with you, if you'd like that. This file will also be linked on the right hand side when a user clicks on __New Issue__.
+
+## Code of Conduct
+
+> A code of conduct is a document that establishes expectations for behavior for your project’s participants. Adopting, and enforcing, a code of conduct can help create a positive social atmosphere for your community.
+>
+> -- [opensource.guide](https://opensource.guide/code-of-conduct/)
+
+From the main page of your repository, click on __Create new File__, type `CODE_OF_CONDUCT.md` into the filename field and GitHub will suggest templates on the left hand side.

@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  conventions-site:
+    container_name: conventions-site-dev
+    ports:
+      - "127.0.0.1:3000:80"

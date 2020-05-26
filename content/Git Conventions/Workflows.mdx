@@ -1,0 +1,34 @@
+---
+title: 'Workflows'
+description: 'Git workflow conventions'
+---
+
+### Gitflow Workflow
+
+The Gitflow was published and popularized by [Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/).
+
+In summary,
+
+1. Master branch will only have high-quality code and only interacts with release branches.
+2. Develop branch is forked from master.
+3. Feature branches are forked from develop and merges back into develop.
+4. When develop has enough features, a release branch is forked from develop.
+    - Only bug fixes and documentation may be merged into release branches.
+    - Release branches have the `release` token, e.g. `release/0.1.0` is a good release branch name.
+    - When it is ready, the release branch is pushed with a tag name, such as `v1.2.3` where `1.2.3` follows [semantic versioning guidelines](https://semver.org/).
+    - The release branch is merged into master and into develop.
+
+5. Hotfix branches are used when there is an application-breaking bug in production (master).
+    - The hotfix branch is forked from master, the fix is implemented and merged back into master as well as develop and current release branch if there is one.
+    - Update the version tag of master.
+
+#### Notes
+
+As you are working on your feature or fix, stay up to date with the develop branch with `git pull --rebase`.
+
+When your branch is ready for a merge, then clean up your commits with `git rebase -i`. Then, open a pull request to be reviewed.
+
+### Git Feature Branch Workflow
+
+A simpler workflow is also often used, you can find more details on [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
+

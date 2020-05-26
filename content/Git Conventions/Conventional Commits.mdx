@@ -1,0 +1,60 @@
+---
+title: 'Conventional Commits'
+description: 'How to write conventional commits that actually mean something'
+---
+
+- A commit is one single _logical change_. Don't commit several logical changes, it ends up being harder to follow and understand.
+- Use the interactive text editor to write meaningful commits `git commit` (omitting the -m).
+- Commit often and early, but push less frequently (only when you're sure).
+
+### Messages
+
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) and [Angular guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#).
+
+To summarize,
+
+```md
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+- All messages are always in present imperative tense. "change", not "changes" nor "changed".
+- Always lowercase.
+- Do not end sentences or phrases with periods.
+- Types possible:
+
+    ```md
+    feat    feature
+    fix     bug fix
+    docs    documentation
+    style   formatting, missing semi colons, etc.
+    refactor
+    test    when adding missing tests, or correcting
+    chore   maintain
+    build   affects build system or external dependencies
+    ci      change to CI configuration and scripts
+    perf    improves performance
+    ```
+
+- Scope is the scope in which the commit is related to. May be omitted.
+- The body explains why, how and side-effects.
+- Footer is where you may reference issues and make note of breaking changes.
+
+    If there is a breaking change, it must be written in uppercase and the type must hav a `!`
+
+    ```md
+    refactor!: drop support for Java 8
+
+    refs #134, #146
+    BREAKING CHANGE: using new features of Java 13, must drop support for Java 8
+    ```
+
+### Reverting Commits
+
+It might happen that we commit a change and push it to remote, but we need to undo it.
+
+This calls for a revert `git revert HEAD`. This will open a text editor where you can write about why the commit needed to be reverted. When you're done, save and close the editor.
+
