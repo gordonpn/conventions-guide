@@ -14,7 +14,7 @@ description: 'Write good branch names'
 - Only use hyphens (dashes) to separate words, not camelCase, nor snake_case.
 - When more than one person is working on the same feature, we may use tokens as such:
 
-    ```md
+    ```
     feat/issue-1/master
     feat/issue-1/gordonpn
     feat/issue-1/bob
@@ -29,7 +29,7 @@ description: 'Write good branch names'
 
 Git branches are separated by group tokens:
 
-```md
+```
 group1/foo
 group2/foo
 group1/bar
@@ -40,7 +40,7 @@ group1/baz
 
 Examples of tokens:
 
-```md
+```
 feat                Feature I'm adding or expanding
 feature             Same as above
 bugfix              Bug fix or experiment
@@ -60,7 +60,7 @@ task-{id}           Identify the task by id
 
 Git branches may be further tokenized:
 
-```md
+```
 feat/user-story-6/brief-description
 feat/feat-area/feat-name
 hotfix/brief-description
@@ -69,13 +69,13 @@ bugfix/gordonpn/issue-4/right-click-unavailable
 
 Full example:
 
-```md
+```
 wip/migrating-db-to-mongodb
 ```
 
 Searching made easy:
 
-```md
+```
 git branch --list "feat/*"
 ```
 
