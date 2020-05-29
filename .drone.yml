@@ -4,7 +4,7 @@ type: docker
 name: notification
 
 trigger:
-  event: [ push ]
+  event: [ push, pull_request ]
 
 steps:
   - name: slack before
@@ -26,8 +26,7 @@ type: docker
 name: build docker images
 
 trigger:
-  event:
-    - push
+  event: [ push, pull_request ]
   branch:
     exclude:
       - master

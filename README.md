@@ -1,6 +1,7 @@
 # (Personal) Conventions Guide
 
 [![Build Status](https://drone.gordon-pn.com/api/badges/gordonpn/conventions-guide/status.svg)](https://drone.gordon-pn.com/gordonpn/conventions-guide)
+[![Uptime Robot](https://badgen.net/uptime-robot/status/m785044849-8955905ca949d4e6248dd665)](hthttps://conventions.gordon-pn.com)
 ![License](https://badgen.net/github/license/gordonpn/conventions-guide)
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gordonpn)
