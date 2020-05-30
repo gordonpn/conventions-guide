@@ -61,14 +61,26 @@ trigger:
       - master
 
 steps:
-  - name: publish docker image
-    image: plugins/docker
-    settings:
-      username: gordonpn
-      password:
+  - name: publish
+    image: docker
+    environment:
+      DOCKER_TOKEN:
         from_secret: DOCKER_TOKEN
-      repo: gordonpn/conventions-guide
-      tags: latest
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - echo $DOCKER_TOKEN | docker login -u gordonpn --password-stdin
+      - docker build -t gordonpn/conventions-guide:latest .
+      - docker push gordonpn/conventions-guide:latest
+
+depends_on:
+  - build docker images
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
 
 ---
 kind: pipeline
