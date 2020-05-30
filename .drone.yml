@@ -15,7 +15,7 @@ steps:
       template: >
         {{build.event}} on branch {{build.branch}} from repo {{repo.name}}
 
-        build #{{build.number}} started!
+        build #{{build.number}} started
 
         {{build.link}}
       webhook:
@@ -43,22 +43,6 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker-compose -f /drone/src/docker-compose.yml -f /drone/src/docker-compose.prod.yml build
-  - name: slack after docker image build
-    image: plugins/slack
-    failure: ignore
-    settings:
-      channel: drone-ci
-      template: >
-        {{repo.name}}:
-        {{#success build.status}}
-        docker image build #{{build.number}} succeeded!
-        {{else}}
-        docker image build #{{build.number}} failed!
-        {{/success}}
-      webhook:
-        from_secret: SLACK_WEBHOOK_URL
-    when:
-      status: [ success, failure ]
 
 volumes:
   - name: dockersock
@@ -85,22 +69,6 @@ steps:
         from_secret: DOCKER_TOKEN
       repo: gordonpn/conventions-guide
       tags: latest
-  - name: slack after publish docker image
-    image: plugins/slack
-    failure: ignore
-    settings:
-      channel: drone-ci
-      template: >
-        {{repo.name}}:
-        {{#success build.status}}
-        publish docker image #{{build.number}} succeeded!
-        {{else}}
-        publish docker image #{{build.number}} failed!
-        {{/success}}
-      webhook:
-        from_secret: SLACK_WEBHOOK_URL
-    when:
-      status: [ success, failure ]
 
 ---
 kind: pipeline
@@ -124,7 +92,22 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker-compose -f /drone/src/docker-compose.yml -f /drone/src/docker-compose.prod.yml up --detach --build
-  - name: slack after deploy
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
+---
+kind: pipeline
+type: docker
+name: notification after
+
+trigger:
+  event: [ push, pull_request ]
+
+steps:
+  - name: slack after
     image: plugins/slack
     failure: ignore
     settings:
@@ -132,16 +115,16 @@ steps:
       template: >
         {{repo.name}}:
         {{#success build.status}}
-        deploy #{{build.number}} succeeded!
+        build #{{build.number}} succeeded
         {{else}}
-        deploy #{{build.number}} failed!
+        build #{{build.number}} failed
         {{/success}}
       webhook:
         from_secret: SLACK_WEBHOOK_URL
     when:
       status: [ success, failure ]
 
-volumes:
-  - name: dockersock
-    host:
-      path: /var/run/docker.sock
+depends_on:
+  - build docker images
+  - publish docker image
+  - deploy
