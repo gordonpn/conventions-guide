@@ -74,14 +74,46 @@ steps:
       - docker build -t gordonpn/conventions-guide:latest .
       - docker push gordonpn/conventions-guide:latest
 
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+---
+kind: pipeline
+type: docker
+name: security
+
+trigger:
+  event: [ push, pull_request ]
+  branch:
+    exclude:
+      - master
+
+steps:
+  - name: snyk scan
+    image: node:14-buster-slim
+    environment:
+      SNYK_TOKEN:
+        from_secret: SNYK_TOKEN
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+      - curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+      - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+      - apt-get update && apt-get install -y docker-ce
+      - npm install -g snyk
+      - snyk test --severity-threshold=high
+      - snyk test --docker conventions-guide:latest --file=Dockerfile
+
 depends_on:
-  - build docker images
+  - publish docker image
 
 volumes:
   - name: dockersock
     host:
       path: /var/run/docker.sock
-
 ---
 kind: pipeline
 type: docker
@@ -104,6 +136,15 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker-compose -f /drone/src/docker-compose.yml -f /drone/src/docker-compose.prod.yml up --detach --build
+  # - name: deploy prod
+  #   image: docker
+  #   environment:
+  #     TZ: America/Montreal
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   commands:
+  #     - docker stack deploy -c /drone/src/docker-compose.yml -c /drone/src/docker-compose.prod.yml conventions-site
 
 volumes:
   - name: dockersock
@@ -139,4 +180,5 @@ steps:
 depends_on:
   - build docker images
   - publish docker image
+  - security
   - deploy
