@@ -1,6 +1,7 @@
 FROM node:14-buster-slim as builder
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install --assume-yes --no-install-recommends build-essential
+RUN apt-get update && apt-get install --assume-yes --no-install-recommends \
+  build-essential
 RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
