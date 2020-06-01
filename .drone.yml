@@ -24,7 +24,7 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: build docker images
+name: build and publish docker image
 
 trigger:
   event: [ push, pull_request ]
@@ -33,35 +33,7 @@ trigger:
       - master
 
 steps:
-  - name: build image
-    image: docker/compose:1.25.5
-    environment:
-      COMPOSE_PROJECT_NAME: conventions-site
-      TZ: America/Montreal
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
-    commands:
-      - docker-compose -f /drone/src/docker-compose.yml -f /drone/src/docker-compose.prod.yml build
-
-volumes:
-  - name: dockersock
-    host:
-      path: /var/run/docker.sock
-
----
-kind: pipeline
-type: docker
-name: publish docker image
-
-trigger:
-  event: [ push, pull_request ]
-  branch:
-    exclude:
-      - master
-
-steps:
-  - name: publish
+  - name: build and publish
     image: docker
     environment:
       DOCKER_TOKEN:
@@ -105,10 +77,10 @@ steps:
       - apt-get update && apt-get install -y docker-ce
       - npm install -g snyk
       - snyk test --severity-threshold=high
-      - snyk test --docker conventions-guide:latest --file=Dockerfile
+      - snyk test --docker gordonpn/conventions-guide:latest --file=Dockerfile
 
 depends_on:
-  - publish docker image
+  - build and publish docker image
 
 volumes:
   - name: dockersock
@@ -129,22 +101,12 @@ steps:
   - name: deploy prod
     image: docker/compose:1.25.5
     environment:
-      COMPOSE_PROJECT_NAME: conventions-site
       TZ: America/Montreal
     volumes:
       - name: dockersock
         path: /var/run/docker.sock
     commands:
-      - docker-compose -f /drone/src/docker-compose.yml -f /drone/src/docker-compose.prod.yml up --detach --build
-  # - name: deploy prod
-  #   image: docker
-  #   environment:
-  #     TZ: America/Montreal
-  #   volumes:
-  #     - name: dockersock
-  #       path: /var/run/docker.sock
-  #   commands:
-  #     - docker stack deploy -c /drone/src/docker-compose.yml -c /drone/src/docker-compose.prod.yml conventions-site
+      - /bin/sh /drone/src/.docker/deploy.sh
 
 volumes:
   - name: dockersock
@@ -178,7 +140,6 @@ steps:
       status: [ success, failure ]
 
 depends_on:
-  - build docker images
-  - publish docker image
+  - build and publish docker image
   - security
   - deploy

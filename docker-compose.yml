@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  conventions-site:
+  frontend:
     environment:
       - TZ=America/Montreal
     restart: always

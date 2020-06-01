@@ -1,8 +1,8 @@
 version: "3.8"
 services:
-  conventions-site:
+  frontend:
     container_name: conventions-site
-    image: gordonpn/conventions-guide
+    image: gordonpn/conventions-guide:latest
     expose:
       - "80"
     restart: always
@@ -21,6 +21,10 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.services.conventions-guide.loadbalancer.server.port=80"
     healthcheck:
       test: curl --fail -s http://localhost:80/ || exit 1
       interval: 1m30s
@@ -28,10 +32,11 @@ services:
       retries: 3
       start_period: 10s
     networks:
-      - web
+      - traefik-public
     labels:
       - "traefik.enable=true"
 
 networks:
-  web:
+  traefik-public:
     external: true
+    driver: overlay
