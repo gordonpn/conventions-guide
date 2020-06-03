@@ -6,4 +6,8 @@ ignore:
     - '*':
         reason: No direct upgrade or patch
         expires: 2020-07-02T00:03:12.839Z
+  SNYK-JS-WEBSOCKETEXTENSIONS-570623:
+    - '*':
+        reason: No direct upgrade or patch
+        expires: 2020-07-03T17:06:11.166Z
 patch: {}
