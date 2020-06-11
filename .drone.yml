@@ -65,6 +65,9 @@ trigger:
     exclude:
       - master
 
+depends_on:
+  - build and publish docker image
+
 steps:
   - name: snyk scan
     image: gordonpn/snyk-cli-drone
