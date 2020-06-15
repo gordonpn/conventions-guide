@@ -7,7 +7,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package*.json ./
 RUN npm install
-RUN npm install --global gatsby-cli@2.12.43
+RUN npm install --global gatsby-cli@2.12.45
 COPY . ./
 RUN gatsby build
 

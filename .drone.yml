@@ -78,8 +78,8 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock
     commands:
-      - snyk test --severity-threshold=high
-      - snyk test --docker gordonpn/conventions-guide:latest --file=Dockerfile
+      - snyk test --severity-threshold=high https://github.com/gordonpn/conventions-guide
+      # - snyk test --docker gordonpn/conventions-guide:latest --file=Dockerfile
 
 volumes:
   - name: dockersock
@@ -105,7 +105,7 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock
     commands:
-      - /bin/sh /drone/src/.docker/deploy.sh
+      - /drone/src/docker/deploy.sh
 
 volumes:
   - name: dockersock
